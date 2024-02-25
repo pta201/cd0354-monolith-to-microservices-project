@@ -14,32 +14,22 @@ before_script:
   - echo "no tests"
 
 script:
-  - docker --version # print the version for logging
-  - docker build -t simple-node .
-  - docker tag simple-node YOUR_DOCKER_HUB/simple-node:latest
-
-# Tasks to perform after the process is successful. Formatting the Docker username and password as below enables you to programmatically log in without having the password exposed in logs.
-after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push YOUR_DOCKER_HUB/simple-node
-
-script:
   # Reverse proxy
   - docker build -t udagram-reverseproxy ./udagram-reverseproxy
-  - docker tag udagram-reverseproxy hminh2027/udagram-reverseproxy:v1
+  - docker tag udagram-reverseproxy minhvh2027/reverseproxy:v1
   # Frontend
   - docker build -t udagram-frontend ./udagram-frontend
-  - docker tag udagram-frontend hminh2027/udagram-frontend:v1
+  - docker tag udagram-frontend minhvh2027/udagram-frontend:v1
   # Users microservice
   - docker build -t udagram-api-user ./udagram-api-user
-  - docker tag udagram-api-user hminh2027/udagram-api-user:v1
+  - docker tag udagram-api-user minhvh2027/udagram-api-user:v1
   # Feed microservice
   - docker build -t udagram-api-feed ./udagram-api-feed
-  - docker tag udagram-api-feed hminh2027/udagram-api-feed:v1
+  - docker tag udagram-api-feed minhvh2027/udagram-api-feed:v1
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push  hminh2027/udagram-reverse-proxy:latest
-  - docker push  hminh2027/udagram-frontend:latest
-  - docker push  hminh2027/udagram-users-microservice:latest
-  - docker push  hminh2027/udagram-feed-microservice:latest
+  - docker push  minhvh2027/reverseproxy
+  - docker push  minhvh2027/udagram-frontend
+  - docker push  minhvh2027/udagram-api-user
+  - docker push  minhvh2027/udagram-api-feed
