@@ -16,20 +16,20 @@ before_script:
 script:
   # Reverse proxy
   - docker build -t udagram-reverseproxy ./udagram-reverseproxy
-  - docker tag udagram-reverseproxy minhvh2027/reverseproxy:latest
+  - docker tag udagram-reverseproxy pta201/reverseproxy:latest
   # Frontend
   - docker build -t udagram-frontend ./udagram-frontend
-  - docker tag udagram-frontend minhvh2027/udagram-frontend:latest
+  - docker tag udagram-frontend pta201/udagram-frontend:latest
   # Users microservice
   - docker build -t udagram-api-user ./udagram-api-user
-  - docker tag udagram-api-user minhvh2027/udagram-api-user:latest
+  - docker tag udagram-api-user pta201/udagram-api-user:latest
   # Feed microservice
   - docker build -t udagram-api-feed ./udagram-api-feed
-  - docker tag udagram-api-feed minhvh2027/udagram-api-feed:latest
+  - docker tag udagram-api-feed pta201/udagram-api-feed:latest
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push  minhvh2027/reverseproxy:latest
-  - docker push  minhvh2027/udagram-frontend:latest
-  - docker push  minhvh2027/udagram-api-user:latest
-  - docker push  minhvh2027/udagram-api-feed:latest
+  - docker push  pta201/reverseproxy:latest
+  - docker push  pta201/udagram-frontend:latest
+  - docker push  pta201/udagram-api-user:latest
+  - docker push  pta201/udagram-api-feed:latest
